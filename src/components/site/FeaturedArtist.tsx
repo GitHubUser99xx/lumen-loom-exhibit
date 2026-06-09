@@ -41,7 +41,7 @@ export function FeaturedArtist() {
 
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-14">
           <figure className="md:col-span-5">
-            <CompactImage src={portrait.url} alt="Painting by Ali Shahidi" />
+            <CompactImage src={portrait} alt="Painting by Ali Shahidi" />
           </figure>
 
           <div className="md:col-span-7">
@@ -92,7 +92,7 @@ export function FeaturedArtist() {
             </p>
           </div>
           <figure className="md:col-span-5 md:order-2 order-1">
-            <CompactImage src={phoenix.url} alt="Phoenix — work by Ali Shahidi" ratio="aspect-square" />
+            <CompactImage src={phoenix} alt="Phoenix — work by Ali Shahidi" ratio="aspect-square" />
           </figure>
         </div>
 
