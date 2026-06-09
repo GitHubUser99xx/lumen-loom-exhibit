@@ -3,7 +3,7 @@ import phoenix from "@/assets/artwork-photography.jpg";
 import { useT } from "@/lib/i18n";
 import { useState } from "react";
 
-function CompactImage({ src, alt, ratio = "aspect-4/5" }: { src: string; alt: string; ratio?: string }) {
+function CompactImage({ src, alt, ratio = "aspect-[4/5]" }: { src: string; alt: string; ratio?: string }) {
   const [loaded, setLoaded] = useState(false);
   return (
     <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-sm bg-midnight-mid shadow-cinematic ring-1 ring-ivory/10">
@@ -14,7 +14,9 @@ function CompactImage({ src, alt, ratio = "aspect-4/5" }: { src: string; alt: st
         loading="lazy"
         decoding="async"
         onLoad={() => setLoaded(true)}
-        className={`${ratio} w-full object-cover transition-opacity duration-700 ${loaded ? "opacity-100" : "opacity-0"}`}
+        className={`${ratio} w-full object-cover transition-opacity duration-700 ${
+          loaded ? "opacity-100" : "opacity-100 md:opacity-0"
+        }`}
       />
     </div>
   );

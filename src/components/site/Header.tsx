@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useT } from "@/lib/i18n";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
@@ -9,6 +10,8 @@ export function Header() {
     { href: "#artists", label: t("nav.artists") },
     { href: "#contact", label: t("nav.contact") },
   ];
+
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -32,8 +35,39 @@ export function Header() {
           ))}
         </nav>
 
-        <LanguageSwitcher />
+        {/* Mobile menu toggle */}
+        <div className="flex items-center gap-3">
+          <button
+            aria-label="Toggle menu"
+            onClick={() => setMobileOpen((s) => !s)}
+            className="inline-flex items-center justify-center rounded-full p-2 md:hidden bg-midnight/20 text-ivory"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          <LanguageSwitcher />
+        </div>
       </div>
+
+      {/* Mobile nav panel */}
+      {mobileOpen && (
+        <div className="md:hidden fixed inset-x-4 top-[72px] z-50 rounded-2xl bg-midnight/95 p-4 shadow-lg">
+          <nav className="flex flex-col gap-3">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className="block rounded-lg px-4 py-3 text-sm uppercase tracking-[0.2em] text-ivory hover:bg-midnight-deep"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

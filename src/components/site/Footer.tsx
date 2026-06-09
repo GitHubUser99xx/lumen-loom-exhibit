@@ -128,9 +128,9 @@ export function Footer() {
               <span>{t("footer.tm")}</span>
             </div>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-              <a href="#" className="hover:text-aurora">Terms</a>
-              <a href="#" className="hover:text-aurora">Privacy</a>
-              <a href="#" className="hover:text-aurora">Accessibility</a>
+              <a href="#" className="hover:text-aurora">{t("footer.terms")}</a>
+              <a href="#" className="hover:text-aurora">{t("footer.privacy")}</a>
+              <a href="#" className="hover:text-aurora">{t("footer.accessibility")}</a>
             </div>
           </div>
 

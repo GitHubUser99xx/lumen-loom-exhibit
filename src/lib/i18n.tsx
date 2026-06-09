@@ -360,6 +360,90 @@ const fa: Dict = {
   "footer.tm": "علامت تجاری ثبت‌شده",
 };
 
+// Browse / artists translations
+en["browse.artists"] = "Artists";
+en["browse.title"] = "Explore artists";
+en["browse.lead"] = "Browse all participating artists in this exhibition.";
+en["browse.solo"] = "Solo exhibition";
+en["browse.mainArtist.title"] = "Main artist";
+en["browse.mainArtist.desc"] =
+  "Ali Shahidi is the centerpiece of this exhibition — his work spans painting, sculpture, photography, and mixed media.";
+en["browse.collections.title"] = "Collections";
+en["browse.collections.painting"] =
+  "Painting: Abstract, Ancient Civilization, Exoplanet";
+en["browse.collections.sculpture"] = "Sculpture: Material Stories, Monumental Gesture";
+en["browse.collections.photography"] = "Photography: Portrait, Light & Landscape";
+en["browse.collections.poetry"] = "Poetry: Ritual, Modern Frame";
+
+fa["browse.artists"] = "هنرمندان";
+fa["browse.title"] = "کاوش هنرمندان";
+fa["browse.lead"] = "مرور همه هنرمندان شرکت‌کننده در این نمایشگاه.";
+fa["browse.solo"] = "نمایشگاه انفرادی";
+fa["browse.mainArtist.title"] = "هنرمند اصلی";
+fa["browse.mainArtist.desc"] =
+  "علی شهیدی نقطه محوری این نمایشگاه است — آثار او در نقاشی، مجسمه، عکاسی و رسانه‌های ترکیبی گسترده‌اند.";
+fa["browse.collections.title"] = "مجموعه‌ها";
+fa["browse.collections.painting"] = "نقاشی: انتزاعی، تمدن باستان، سیاره فراخورشیدی";
+fa["browse.collections.sculpture"] = "مجسمه: داستان‌های ماده، ژست مجسمه‌ای";
+fa["browse.collections.photography"] = "عکاسی: پرتره، نور و چشم‌انداز";
+fa["browse.collections.poetry"] = "شعر: آیین، چارچوب مدرن";
+
+// Artwork titles and mediums
+en["art.liminal.title"] = "Liminal Bloom";
+en["art.liminal.medium"] = "Painting";
+en["art.threshold.title"] = "Threshold";
+en["art.threshold.medium"] = "Sculpture";
+en["art.city.title"] = "City of Quiet";
+en["art.city.medium"] = "Photography";
+en["art.echoes.title"] = "Echoes";
+en["art.echoes.medium"] = "Mixed Media";
+
+fa["art.liminal.title"] = "شکوفه مرزی";
+fa["art.liminal.medium"] = "نقاشی";
+fa["art.threshold.title"] = "آستانه";
+fa["art.threshold.medium"] = "مجسمه";
+fa["art.city.title"] = "شهرِ سکوت";
+fa["art.city.medium"] = "عکاسی";
+fa["art.echoes.title"] = "واکو";
+fa["art.echoes.medium"] = "رسانه ترکیبی";
+
+// Footer policy links
+en["footer.terms"] = "Terms";
+en["footer.privacy"] = "Privacy";
+en["footer.accessibility"] = "Accessibility";
+
+fa["footer.terms"] = "قوانین";
+fa["footer.privacy"] = "حریم خصوصی";
+fa["footer.accessibility"] = "دسترس‌پذیری";
+
+// Artwork titles and mediums
+en["art.liminal.title"] = "Liminal Bloom";
+en["art.liminal.medium"] = "Painting";
+en["art.threshold.title"] = "Threshold";
+en["art.threshold.medium"] = "Sculpture";
+en["art.city.title"] = "City of Quiet";
+en["art.city.medium"] = "Photography";
+en["art.echoes.title"] = "Echoes";
+en["art.echoes.medium"] = "Mixed Media";
+
+fa["art.liminal.title"] = "شکوفه مرزی";
+fa["art.liminal.medium"] = "نقاشی";
+fa["art.threshold.title"] = "آستانه";
+fa["art.threshold.medium"] = "مجسمه";
+fa["art.city.title"] = "شهرِ سکوت";
+fa["art.city.medium"] = "عکاسی";
+fa["art.echoes.title"] = "واکو";
+fa["art.echoes.medium"] = "رسانه ترکیبی";
+
+// Footer policy links
+en["footer.terms"] = "Terms";
+en["footer.privacy"] = "Privacy";
+en["footer.accessibility"] = "Accessibility";
+
+fa["footer.terms"] = "قوانین";
+fa["footer.privacy"] = "حریم خصوصی";
+fa["footer.accessibility"] = "دسترس‌پذیری";
+
 const dicts: Record<Lang, Dict> = { EN: en, FA: fa };
 
 type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (key: string) => string };
