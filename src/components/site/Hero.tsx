@@ -10,7 +10,7 @@ export function Hero() {
     >
       <div className="absolute inset-0">
         <img
-          src={heroImage}
+          src={`${heroImage}?v=2`}
           alt="Filmic interior exhibition hall"
           width={1920}
           height={1080}
