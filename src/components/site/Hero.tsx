@@ -1,4 +1,4 @@
-import heroAsset from "@/assets/shahidi-portrait.jpg.asset.json";
+import heroImage from "@/assets/hero-exhibition.jpg";
 import { useT } from "@/lib/i18n";
 
 export function Hero() {
@@ -10,8 +10,8 @@ export function Hero() {
     >
       <div className="absolute inset-0">
         <img
-          src={heroAsset.url}
-          alt="Starlit portrait — painting by Ali Shahidi"
+          src={heroImage}
+          alt="Filmic interior exhibition hall"
           width={1920}
           height={1080}
           className="h-full w-full animate-ken-burns object-cover"
