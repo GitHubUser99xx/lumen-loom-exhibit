@@ -5,10 +5,7 @@
     { "src": "api/ssr.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/favicon.png", "dest": "/favicon.png" },
-    { "src": "/favicon.ico", "dest": "/favicon.ico" },
-    { "src": "/robots.txt", "dest": "/robots.txt" },
+    { "handle": "filesystem" },
     { "src": "/api/(.*)", "dest": "/api/ssr.js" },
     { "src": "/(.*)", "dest": "/api/ssr.js" }
   ]
