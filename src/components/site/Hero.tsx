@@ -1,4 +1,4 @@
-import heroImage from "@/assets/hero-exhibition.jpg";
+import heroImage from "@/assets/hero-exhibition1.jpg";
 import { useT } from "@/lib/i18n";
 
 export function Hero() {
@@ -10,7 +10,7 @@ export function Hero() {
     >
       <div className="absolute inset-0">
         <img
-          src={`${heroImage}?v=2`}
+          src={heroImage}
           alt="Filmic interior exhibition hall"
           width={1920}
           height={1080}
