@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex h-[78svh] min-h-[560px] w-full items-end overflow-hidden bg-midnight"
+      className="relative flex h-[78svh] min-h-140 w-full items-end overflow-hidden bg-midnight"
     >
       <div className="absolute inset-0">
         <img
@@ -17,8 +17,8 @@ export function Hero() {
           className="h-full w-full animate-ken-burns object-cover"
         />
         {/* Lighter gradients so the artwork remains visible */}
-        <div className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/45 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-midnight/75 via-midnight/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-midnight via-midnight/45 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-midnight/75 via-midnight/20 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20 md:px-12 md:pb-24">
@@ -43,7 +43,7 @@ export function Hero() {
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <a
               href="#exhibition"
-              className="group inline-flex items-center gap-3 rounded-full bg-aurora px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.25em] text-midnight-deep shadow-glow transition-transform hover:translate-y-[-1px] active:scale-95"
+              className="group inline-flex items-center gap-3 rounded-full bg-aurora px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.25em] text-midnight-deep shadow-glow transition-transform hover:-translate-y-px active:scale-95"
             >
               {t("hero.cta.enter")}
               <span className="h-1.5 w-1.5 rounded-full bg-midnight-deep transition-transform group-hover:scale-150" />

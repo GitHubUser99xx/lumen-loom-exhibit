@@ -53,7 +53,7 @@ export function Header() {
 
       {/* Mobile nav panel */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-x-4 top-[72px] z-50 rounded-2xl bg-midnight/95 p-4 shadow-lg">
+      <div className="md:hidden fixed inset-x-4 top-18 z-50 rounded-2xl bg-midnight/95 p-4 shadow-lg">
           <nav className="flex flex-col gap-3">
             {navItems.map((item) => (
               <a
