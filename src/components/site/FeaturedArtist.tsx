@@ -14,6 +14,7 @@ function CompactImage({ src, alt, ratio = "aspect-[4/5]" }: { src: string; alt: 
         loading="lazy"
         decoding="async"
         onLoad={() => setLoaded(true)}
+        onError={() => setLoaded(true)}
         className={`${ratio} w-full object-cover transition-opacity duration-700 ${
           loaded ? "opacity-100" : "opacity-100 md:opacity-0"
         }`}
