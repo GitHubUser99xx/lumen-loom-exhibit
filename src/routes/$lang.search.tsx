@@ -91,7 +91,7 @@ function SearchPage() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            navigate({ search: (prev) => ({ ...prev, q: draft.trim() }) });
+            navigate({ search: (prev: SearchParams) => ({ ...prev, q: draft.trim() }) });
           }}
           className="mb-6 flex gap-2"
         >
@@ -113,7 +113,7 @@ function SearchPage() {
         <div className="mb-10 flex flex-wrap gap-2">
           <FilterChip
             active={!hall}
-            onClick={() => navigate({ search: (prev) => ({ ...prev, hall: undefined }) })}
+            onClick={() => navigate({ search: (prev: SearchParams) => ({ ...prev, hall: undefined }) })}
           >
             {isFa ? "همه" : "All halls"}
           </FilterChip>
@@ -121,7 +121,7 @@ function SearchPage() {
             <FilterChip
               key={h}
               active={hall === h}
-              onClick={() => navigate({ search: (prev) => ({ ...prev, hall: h }) })}
+              onClick={() => navigate({ search: (prev: SearchParams) => ({ ...prev, hall: h }) })}
             >
               {h}
             </FilterChip>
