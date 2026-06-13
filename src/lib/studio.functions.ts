@@ -33,7 +33,7 @@ export const upsertMyArtist = createServerFn({ method: "POST" })
         .from("artists")
         .update(payload)
         .eq("id", existing.id)
-        .select()
+        .select("id, slug, title_en, title_fa, title_fr, hall, medium, year, is_published, image_paths, video_url, video_provider, created_at, updated_at")
         .single();
       if (error) throw new Error(error.message);
       return row;
@@ -41,7 +41,7 @@ export const upsertMyArtist = createServerFn({ method: "POST" })
     const { data: row, error } = await supabase
       .from("artists")
       .insert(payload)
-      .select()
+      .select("id, slug, title_en, title_fa, title_fr, hall, medium, year, is_published, image_paths, video_url, video_provider, created_at, updated_at")
       .single();
     if (error) throw new Error(error.message);
     return row;
@@ -121,7 +121,7 @@ export const upsertMyArtwork = createServerFn({ method: "POST" })
         .from("artworks")
         .update(payload)
         .eq("id", data.id)
-        .select()
+        .select("id, slug, title_en, title_fa, title_fr, hall, medium, year, is_published, image_paths, video_url, video_provider, created_at, updated_at")
         .single();
       if (error) throw new Error(error.message);
       return row;
@@ -129,7 +129,7 @@ export const upsertMyArtwork = createServerFn({ method: "POST" })
     const { data: row, error } = await context.supabase
       .from("artworks")
       .insert(payload)
-      .select()
+      .select("id, slug, title_en, title_fa, title_fr, hall, medium, year, is_published, image_paths, video_url, video_provider, created_at, updated_at")
       .single();
     if (error) throw new Error(error.message);
     return row;
