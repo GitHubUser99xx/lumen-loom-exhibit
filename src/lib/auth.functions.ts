@@ -16,7 +16,7 @@ export const getMe = createServerFn({ method: "GET" })
       userId,
       email: (claims as { email?: string }).email ?? null,
       displayName: profile?.display_name ?? null,
-      avatarUrl: profile?.avatar_path ?? null,
+      avatarPath: profile?.avatar_path ?? null,
       roles,
     };
   });
