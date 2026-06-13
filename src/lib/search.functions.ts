@@ -26,7 +26,7 @@ export type SearchHit = {
   hall: string;
   year: number | null;
   medium: string | null;
-  image_paths: Record<string, unknown>;
+  image_paths: Record<string, string>;
   artist_id: string;
   artist_name: string | null;
   artist_slug: string | null;

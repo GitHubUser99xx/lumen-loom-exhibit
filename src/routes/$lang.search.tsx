@@ -2,8 +2,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { z } from "zod";
-import { zodValidator } from "@tanstack/zod-adapter";
 import { searchArtworks, type SearchResult } from "@/lib/search.functions";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -11,14 +9,15 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const HALLS = ["painting", "sculpture", "photography", "architecture", "poetry", "craft"] as const;
+type Hall = (typeof HALLS)[number];
 
-const SearchSchema = z.object({
-  q: z.string().optional().default(""),
-  hall: z.enum(HALLS).optional(),
-});
+type SearchParams = { q: string; hall?: Hall };
 
 export const Route = createFileRoute("/$lang/search")({
-  validateSearch: zodValidator(SearchSchema),
+  validateSearch: (search: Record<string, unknown>): SearchParams => ({
+    q: typeof search.q === "string" ? search.q : "",
+    hall: HALLS.includes(search.hall as Hall) ? (search.hall as Hall) : undefined,
+  }),
   head: ({ params }) => ({
     meta: [
       { title: "Search — LUMEN" },
