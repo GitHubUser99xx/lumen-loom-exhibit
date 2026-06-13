@@ -16,7 +16,7 @@ export const listUsers = createServerFn({ method: "GET" })
     await assertAdmin(context.supabase, context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const [{ data: profiles }, { data: roles }] = await Promise.all([
-      supabaseAdmin.from("profiles").select("id, display_name, avatar_url, created_at").order("created_at", { ascending: false }).limit(500),
+      supabaseAdmin.from("profiles").select("id, display_name, avatar_path, created_at").order("created_at", { ascending: false }).limit(500),
       supabaseAdmin.from("user_roles").select("user_id, role"),
     ]);
     const rolesByUser = new Map<string, string[]>();
