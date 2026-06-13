@@ -9,15 +9,37 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as LangRouteImport } from './routes/$lang'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedStudioRouteImport } from './routes/_authenticated/studio'
+import { Route as AuthenticatedCuratorRouteImport } from './routes/_authenticated/curator'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as LangSearchRouteImport } from './routes/$lang.search'
+import { Route as AuthenticatedStudioIndexRouteImport } from './routes/_authenticated/studio.index'
+import { Route as AuthenticatedCuratorIndexRouteImport } from './routes/_authenticated/curator.index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as ApiPublicSubscribeRouteImport } from './routes/api/public/subscribe'
+import { Route as AuthenticatedStudioProfileRouteImport } from './routes/_authenticated/studio.profile'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
+import { Route as AuthenticatedAdminModerationRouteImport } from './routes/_authenticated/admin.moderation'
 import { Route as ApiPublicSubscribeConfirmRouteImport } from './routes/api/public/subscribe.confirm'
+import { Route as AuthenticatedStudioArtworksNewRouteImport } from './routes/_authenticated/studio.artworks.new'
+import { Route as AuthenticatedStudioArtworksIdRouteImport } from './routes/_authenticated/studio.artworks.$id'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LangRoute = LangRouteImport.update({
   id: '/$lang',
   path: '/$lang',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,43 +47,138 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedStudioRoute = AuthenticatedStudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCuratorRoute = AuthenticatedCuratorRouteImport.update({
+  id: '/curator',
+  path: '/curator',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const LangSearchRoute = LangSearchRouteImport.update({
   id: '/search',
   path: '/search',
   getParentRoute: () => LangRoute,
+} as any)
+const AuthenticatedStudioIndexRoute =
+  AuthenticatedStudioIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedStudioRoute,
+  } as any)
+const AuthenticatedCuratorIndexRoute =
+  AuthenticatedCuratorIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedCuratorRoute,
+  } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const ApiPublicSubscribeRoute = ApiPublicSubscribeRouteImport.update({
   id: '/api/public/subscribe',
   path: '/api/public/subscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedStudioProfileRoute =
+  AuthenticatedStudioProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedStudioRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminModerationRoute =
+  AuthenticatedAdminModerationRouteImport.update({
+    id: '/moderation',
+    path: '/moderation',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const ApiPublicSubscribeConfirmRoute =
   ApiPublicSubscribeConfirmRouteImport.update({
     id: '/confirm',
     path: '/confirm',
     getParentRoute: () => ApiPublicSubscribeRoute,
   } as any)
+const AuthenticatedStudioArtworksNewRoute =
+  AuthenticatedStudioArtworksNewRouteImport.update({
+    id: '/artworks/new',
+    path: '/artworks/new',
+    getParentRoute: () => AuthenticatedStudioRoute,
+  } as any)
+const AuthenticatedStudioArtworksIdRoute =
+  AuthenticatedStudioArtworksIdRouteImport.update({
+    id: '/artworks/$id',
+    path: '/artworks/$id',
+    getParentRoute: () => AuthenticatedStudioRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$lang': typeof LangRouteWithChildren
+  '/auth': typeof AuthRoute
   '/$lang/search': typeof LangSearchRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/curator': typeof AuthenticatedCuratorRouteWithChildren
+  '/studio': typeof AuthenticatedStudioRouteWithChildren
+  '/admin/moderation': typeof AuthenticatedAdminModerationRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/studio/profile': typeof AuthenticatedStudioProfileRoute
   '/api/public/subscribe': typeof ApiPublicSubscribeRouteWithChildren
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/curator/': typeof AuthenticatedCuratorIndexRoute
+  '/studio/': typeof AuthenticatedStudioIndexRoute
+  '/studio/artworks/$id': typeof AuthenticatedStudioArtworksIdRoute
+  '/studio/artworks/new': typeof AuthenticatedStudioArtworksNewRoute
   '/api/public/subscribe/confirm': typeof ApiPublicSubscribeConfirmRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$lang': typeof LangRouteWithChildren
+  '/auth': typeof AuthRoute
   '/$lang/search': typeof LangSearchRoute
+  '/admin/moderation': typeof AuthenticatedAdminModerationRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/studio/profile': typeof AuthenticatedStudioProfileRoute
   '/api/public/subscribe': typeof ApiPublicSubscribeRouteWithChildren
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/curator': typeof AuthenticatedCuratorIndexRoute
+  '/studio': typeof AuthenticatedStudioIndexRoute
+  '/studio/artworks/$id': typeof AuthenticatedStudioArtworksIdRoute
+  '/studio/artworks/new': typeof AuthenticatedStudioArtworksNewRoute
   '/api/public/subscribe/confirm': typeof ApiPublicSubscribeConfirmRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/$lang': typeof LangRouteWithChildren
+  '/auth': typeof AuthRoute
   '/$lang/search': typeof LangSearchRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/curator': typeof AuthenticatedCuratorRouteWithChildren
+  '/_authenticated/studio': typeof AuthenticatedStudioRouteWithChildren
+  '/_authenticated/admin/moderation': typeof AuthenticatedAdminModerationRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/_authenticated/studio/profile': typeof AuthenticatedStudioProfileRoute
   '/api/public/subscribe': typeof ApiPublicSubscribeRouteWithChildren
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/curator/': typeof AuthenticatedCuratorIndexRoute
+  '/_authenticated/studio/': typeof AuthenticatedStudioIndexRoute
+  '/_authenticated/studio/artworks/$id': typeof AuthenticatedStudioArtworksIdRoute
+  '/_authenticated/studio/artworks/new': typeof AuthenticatedStudioArtworksNewRoute
   '/api/public/subscribe/confirm': typeof ApiPublicSubscribeConfirmRoute
 }
 export interface FileRouteTypes {
@@ -69,38 +186,88 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$lang'
+    | '/auth'
     | '/$lang/search'
+    | '/admin'
+    | '/curator'
+    | '/studio'
+    | '/admin/moderation'
+    | '/admin/users'
+    | '/studio/profile'
     | '/api/public/subscribe'
+    | '/admin/'
+    | '/curator/'
+    | '/studio/'
+    | '/studio/artworks/$id'
+    | '/studio/artworks/new'
     | '/api/public/subscribe/confirm'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/$lang'
+    | '/auth'
     | '/$lang/search'
+    | '/admin/moderation'
+    | '/admin/users'
+    | '/studio/profile'
     | '/api/public/subscribe'
+    | '/admin'
+    | '/curator'
+    | '/studio'
+    | '/studio/artworks/$id'
+    | '/studio/artworks/new'
     | '/api/public/subscribe/confirm'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/$lang'
+    | '/auth'
     | '/$lang/search'
+    | '/_authenticated/admin'
+    | '/_authenticated/curator'
+    | '/_authenticated/studio'
+    | '/_authenticated/admin/moderation'
+    | '/_authenticated/admin/users'
+    | '/_authenticated/studio/profile'
     | '/api/public/subscribe'
+    | '/_authenticated/admin/'
+    | '/_authenticated/curator/'
+    | '/_authenticated/studio/'
+    | '/_authenticated/studio/artworks/$id'
+    | '/_authenticated/studio/artworks/new'
     | '/api/public/subscribe/confirm'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   LangRoute: typeof LangRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ApiPublicSubscribeRoute: typeof ApiPublicSubscribeRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$lang': {
       id: '/$lang'
       path: '/$lang'
       fullPath: '/$lang'
       preLoaderRoute: typeof LangRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -110,12 +277,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/studio': {
+      id: '/_authenticated/studio'
+      path: '/studio'
+      fullPath: '/studio'
+      preLoaderRoute: typeof AuthenticatedStudioRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/curator': {
+      id: '/_authenticated/curator'
+      path: '/curator'
+      fullPath: '/curator'
+      preLoaderRoute: typeof AuthenticatedCuratorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/$lang/search': {
       id: '/$lang/search'
       path: '/search'
       fullPath: '/$lang/search'
       preLoaderRoute: typeof LangSearchRouteImport
       parentRoute: typeof LangRoute
+    }
+    '/_authenticated/studio/': {
+      id: '/_authenticated/studio/'
+      path: '/'
+      fullPath: '/studio/'
+      preLoaderRoute: typeof AuthenticatedStudioIndexRouteImport
+      parentRoute: typeof AuthenticatedStudioRoute
+    }
+    '/_authenticated/curator/': {
+      id: '/_authenticated/curator/'
+      path: '/'
+      fullPath: '/curator/'
+      preLoaderRoute: typeof AuthenticatedCuratorIndexRouteImport
+      parentRoute: typeof AuthenticatedCuratorRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/api/public/subscribe': {
       id: '/api/public/subscribe'
@@ -124,6 +333,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/studio/profile': {
+      id: '/_authenticated/studio/profile'
+      path: '/profile'
+      fullPath: '/studio/profile'
+      preLoaderRoute: typeof AuthenticatedStudioProfileRouteImport
+      parentRoute: typeof AuthenticatedStudioRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/moderation': {
+      id: '/_authenticated/admin/moderation'
+      path: '/moderation'
+      fullPath: '/admin/moderation'
+      preLoaderRoute: typeof AuthenticatedAdminModerationRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/api/public/subscribe/confirm': {
       id: '/api/public/subscribe/confirm'
       path: '/confirm'
@@ -131,8 +361,80 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSubscribeConfirmRouteImport
       parentRoute: typeof ApiPublicSubscribeRoute
     }
+    '/_authenticated/studio/artworks/new': {
+      id: '/_authenticated/studio/artworks/new'
+      path: '/artworks/new'
+      fullPath: '/studio/artworks/new'
+      preLoaderRoute: typeof AuthenticatedStudioArtworksNewRouteImport
+      parentRoute: typeof AuthenticatedStudioRoute
+    }
+    '/_authenticated/studio/artworks/$id': {
+      id: '/_authenticated/studio/artworks/$id'
+      path: '/artworks/$id'
+      fullPath: '/studio/artworks/$id'
+      preLoaderRoute: typeof AuthenticatedStudioArtworksIdRouteImport
+      parentRoute: typeof AuthenticatedStudioRoute
+    }
   }
 }
+
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminModerationRoute: typeof AuthenticatedAdminModerationRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminModerationRoute: AuthenticatedAdminModerationRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedCuratorRouteChildren {
+  AuthenticatedCuratorIndexRoute: typeof AuthenticatedCuratorIndexRoute
+}
+
+const AuthenticatedCuratorRouteChildren: AuthenticatedCuratorRouteChildren = {
+  AuthenticatedCuratorIndexRoute: AuthenticatedCuratorIndexRoute,
+}
+
+const AuthenticatedCuratorRouteWithChildren =
+  AuthenticatedCuratorRoute._addFileChildren(AuthenticatedCuratorRouteChildren)
+
+interface AuthenticatedStudioRouteChildren {
+  AuthenticatedStudioProfileRoute: typeof AuthenticatedStudioProfileRoute
+  AuthenticatedStudioIndexRoute: typeof AuthenticatedStudioIndexRoute
+  AuthenticatedStudioArtworksIdRoute: typeof AuthenticatedStudioArtworksIdRoute
+  AuthenticatedStudioArtworksNewRoute: typeof AuthenticatedStudioArtworksNewRoute
+}
+
+const AuthenticatedStudioRouteChildren: AuthenticatedStudioRouteChildren = {
+  AuthenticatedStudioProfileRoute: AuthenticatedStudioProfileRoute,
+  AuthenticatedStudioIndexRoute: AuthenticatedStudioIndexRoute,
+  AuthenticatedStudioArtworksIdRoute: AuthenticatedStudioArtworksIdRoute,
+  AuthenticatedStudioArtworksNewRoute: AuthenticatedStudioArtworksNewRoute,
+}
+
+const AuthenticatedStudioRouteWithChildren =
+  AuthenticatedStudioRoute._addFileChildren(AuthenticatedStudioRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedCuratorRoute: typeof AuthenticatedCuratorRouteWithChildren
+  AuthenticatedStudioRoute: typeof AuthenticatedStudioRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedCuratorRoute: AuthenticatedCuratorRouteWithChildren,
+  AuthenticatedStudioRoute: AuthenticatedStudioRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 interface LangRouteChildren {
   LangSearchRoute: typeof LangSearchRoute
@@ -157,7 +459,9 @@ const ApiPublicSubscribeRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   LangRoute: LangRouteWithChildren,
+  AuthRoute: AuthRoute,
   ApiPublicSubscribeRoute: ApiPublicSubscribeRouteWithChildren,
 }
 export const routeTree = rootRouteImport

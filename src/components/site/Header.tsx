@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { useT } from "@/lib/i18n";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { supabase } from "@/integrations/supabase/client";
 
 export function Header() {
   const { t } = useT();
-    const navItems = [
+  const { data: me } = useCurrentUser();
+  const navItems = [
     { href: "#exhibition", label: t("nav.exhibitions") },
     { href: "#hall", label: t("nav.hall") },
     { href: "#artists", label: t("nav.artists") },
@@ -12,6 +16,18 @@ export function Header() {
   ];
 
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [userOpen, setUserOpen] = useState(false);
+
+  const roles = me?.roles ?? [];
+  const isArtist = roles.includes("artist") || roles.includes("admin");
+  const isCurator = roles.includes("curator") || roles.includes("admin");
+  const isAdmin = roles.includes("admin");
+
+  async function signOut() {
+    await supabase.auth.signOut();
+    setUserOpen(false);
+    window.location.reload();
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -35,8 +51,57 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Mobile menu toggle */}
         <div className="flex items-center gap-3">
+          {/* User menu */}
+          {me ? (
+            <div className="relative">
+              <button
+                onClick={() => setUserOpen((s) => !s)}
+                className="inline-flex items-center gap-2 rounded-full border border-ivory/20 bg-midnight/40 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-ivory hover:bg-midnight/60"
+              >
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-sky-500 text-[10px]">
+                  {(me.displayName ?? me.email ?? "?").slice(0, 1).toUpperCase()}
+                </span>
+                <span className="hidden sm:inline">{me.displayName ?? me.email}</span>
+              </button>
+              {userOpen && (
+                <div className="absolute right-0 mt-2 w-56 rounded-xl border border-ivory/10 bg-midnight/95 p-2 shadow-xl">
+                  {isArtist && (
+                    <Link to="/studio" onClick={() => setUserOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-ivory hover:bg-midnight-deep">
+                      Artist studio
+                    </Link>
+                  )}
+                  {isCurator && (
+                    <Link to="/curator" onClick={() => setUserOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-ivory hover:bg-midnight-deep">
+                      Curator
+                    </Link>
+                  )}
+                  {isAdmin && (
+                    <Link to="/admin" onClick={() => setUserOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-ivory hover:bg-midnight-deep">
+                      Admin
+                    </Link>
+                  )}
+                  {!isArtist && !isCurator && !isAdmin && (
+                    <p className="px-3 py-2 text-xs text-ivory-soft/60">
+                      Ask an administrator for artist access.
+                    </p>
+                  )}
+                  <div className="my-1 h-px bg-ivory/10" />
+                  <button onClick={signOut} className="block w-full rounded-lg px-3 py-2 text-left text-sm text-ivory hover:bg-midnight-deep">
+                    Sign out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link
+              to="/auth"
+              className="hidden md:inline-flex items-center justify-center rounded-full border border-ivory/20 bg-midnight/40 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-ivory hover:bg-midnight/60"
+            >
+              Sign in
+            </Link>
+          )}
+
           <button
             aria-label="Toggle menu"
             onClick={() => setMobileOpen((s) => !s)}
@@ -51,9 +116,8 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile nav panel */}
       {mobileOpen && (
-      <div className="md:hidden fixed inset-x-4 top-18 z-50 rounded-2xl bg-midnight/95 p-4 shadow-lg">
+        <div className="md:hidden fixed inset-x-4 top-18 z-50 rounded-2xl bg-midnight/95 p-4 shadow-lg">
           <nav className="flex flex-col gap-3">
             {navItems.map((item) => (
               <a
@@ -65,10 +129,14 @@ export function Header() {
                 {item.label}
               </a>
             ))}
+            {!me && (
+              <Link to="/auth" onClick={() => setMobileOpen(false)} className="block rounded-lg px-4 py-3 text-sm uppercase tracking-[0.2em] text-ivory hover:bg-midnight-deep">
+                Sign in
+              </Link>
+            )}
           </nav>
         </div>
       )}
     </header>
   );
 }
-
