@@ -9,14 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LangRouteImport } from './routes/$lang'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LangSearchRouteImport } from './routes/$lang.search'
 import { Route as ApiPublicSubscribeRouteImport } from './routes/api/public/subscribe'
 import { Route as ApiPublicSubscribeConfirmRouteImport } from './routes/api/public/subscribe.confirm'
 
+const LangRoute = LangRouteImport.update({
+  id: '/$lang',
+  path: '/$lang',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LangSearchRoute = LangSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => LangRoute,
 } as any)
 const ApiPublicSubscribeRoute = ApiPublicSubscribeRouteImport.update({
   id: '/api/public/subscribe',
@@ -32,45 +44,78 @@ const ApiPublicSubscribeConfirmRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$lang': typeof LangRouteWithChildren
+  '/$lang/search': typeof LangSearchRoute
   '/api/public/subscribe': typeof ApiPublicSubscribeRouteWithChildren
   '/api/public/subscribe/confirm': typeof ApiPublicSubscribeConfirmRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$lang': typeof LangRouteWithChildren
+  '/$lang/search': typeof LangSearchRoute
   '/api/public/subscribe': typeof ApiPublicSubscribeRouteWithChildren
   '/api/public/subscribe/confirm': typeof ApiPublicSubscribeConfirmRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$lang': typeof LangRouteWithChildren
+  '/$lang/search': typeof LangSearchRoute
   '/api/public/subscribe': typeof ApiPublicSubscribeRouteWithChildren
   '/api/public/subscribe/confirm': typeof ApiPublicSubscribeConfirmRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/public/subscribe' | '/api/public/subscribe/confirm'
+  fullPaths:
+    | '/'
+    | '/$lang'
+    | '/$lang/search'
+    | '/api/public/subscribe'
+    | '/api/public/subscribe/confirm'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/public/subscribe' | '/api/public/subscribe/confirm'
+  to:
+    | '/'
+    | '/$lang'
+    | '/$lang/search'
+    | '/api/public/subscribe'
+    | '/api/public/subscribe/confirm'
   id:
     | '__root__'
     | '/'
+    | '/$lang'
+    | '/$lang/search'
     | '/api/public/subscribe'
     | '/api/public/subscribe/confirm'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LangRoute: typeof LangRouteWithChildren
   ApiPublicSubscribeRoute: typeof ApiPublicSubscribeRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/$lang': {
+      id: '/$lang'
+      path: '/$lang'
+      fullPath: '/$lang'
+      preLoaderRoute: typeof LangRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/$lang/search': {
+      id: '/$lang/search'
+      path: '/search'
+      fullPath: '/$lang/search'
+      preLoaderRoute: typeof LangSearchRouteImport
+      parentRoute: typeof LangRoute
     }
     '/api/public/subscribe': {
       id: '/api/public/subscribe'
@@ -89,6 +134,16 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface LangRouteChildren {
+  LangSearchRoute: typeof LangSearchRoute
+}
+
+const LangRouteChildren: LangRouteChildren = {
+  LangSearchRoute: LangSearchRoute,
+}
+
+const LangRouteWithChildren = LangRoute._addFileChildren(LangRouteChildren)
+
 interface ApiPublicSubscribeRouteChildren {
   ApiPublicSubscribeConfirmRoute: typeof ApiPublicSubscribeConfirmRoute
 }
@@ -102,6 +157,7 @@ const ApiPublicSubscribeRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LangRoute: LangRouteWithChildren,
   ApiPublicSubscribeRoute: ApiPublicSubscribeRouteWithChildren,
 }
 export const routeTree = rootRouteImport
