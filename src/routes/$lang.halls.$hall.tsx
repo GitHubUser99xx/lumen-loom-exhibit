@@ -24,7 +24,7 @@ const hallQuery = (hall: z.infer<typeof Hall>) =>
   });
 
 export const Route = createFileRoute("/$lang/halls/$hall")({
-  parseParams: (p) => {
+  parseParams: (p: any) => {
     const parsed = Hall.safeParse(p.hall);
     if (!parsed.success) throw notFound();
     return { lang: p.lang as "en" | "fa", hall: parsed.data };

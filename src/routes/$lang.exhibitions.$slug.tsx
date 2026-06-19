@@ -16,7 +16,7 @@ const exhibitionQuery = (slug: string) =>
   });
 
 export const Route = createFileRoute("/$lang/exhibitions/$slug")({
-  parseParams: (p) => ({ lang: p.lang as "en" | "fa", slug: p.slug }),
+  parseParams: (p: any) => ({ lang: p.lang as "en" | "fa", slug: p.slug }),
   loader: ({ params, context }) =>
     context.queryClient.ensureQueryData(exhibitionQuery(params.slug)),
   head: ({ params, loaderData }) => {

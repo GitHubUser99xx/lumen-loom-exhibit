@@ -16,7 +16,7 @@ const artistQuery = (slug: string) =>
   });
 
 export const Route = createFileRoute("/$lang/artists/$slug")({
-  parseParams: (p) => ({ lang: p.lang as "en" | "fa", slug: p.slug }),
+  parseParams: (p: any) => ({ lang: p.lang as "en" | "fa", slug: p.slug }),
   loader: ({ params, context }) =>
     context.queryClient.ensureQueryData(artistQuery(params.slug)),
   head: ({ params, loaderData }) => {

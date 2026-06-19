@@ -15,7 +15,7 @@ const artworkQuery = (slug: string) =>
   });
 
 export const Route = createFileRoute("/$lang/artworks/$slug")({
-  parseParams: (p) => ({ lang: p.lang as "en" | "fa", slug: p.slug }),
+  parseParams: (p: any) => ({ lang: p.lang as "en" | "fa", slug: p.slug }),
   loader: ({ params, context }) =>
     context.queryClient.ensureQueryData(artworkQuery(params.slug)),
   head: ({ params, loaderData }) => {
