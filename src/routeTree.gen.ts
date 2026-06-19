@@ -24,6 +24,10 @@ import { Route as ApiPublicSubscribeRouteImport } from './routes/api/public/subs
 import { Route as AuthenticatedStudioProfileRouteImport } from './routes/_authenticated/studio.profile'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as AuthenticatedAdminModerationRouteImport } from './routes/_authenticated/admin.moderation'
+import { Route as LangHallsHallRouteImport } from './routes/$lang.halls.$hall'
+import { Route as LangExhibitionsSlugRouteImport } from './routes/$lang.exhibitions.$slug'
+import { Route as LangArtworksSlugRouteImport } from './routes/$lang.artworks.$slug'
+import { Route as LangArtistsSlugRouteImport } from './routes/$lang.artists.$slug'
 import { Route as ApiPublicSubscribeConfirmRouteImport } from './routes/api/public/subscribe.confirm'
 import { Route as AuthenticatedStudioArtworksNewRouteImport } from './routes/_authenticated/studio.artworks.new'
 import { Route as AuthenticatedStudioArtworksIdRouteImport } from './routes/_authenticated/studio.artworks.$id'
@@ -106,6 +110,26 @@ const AuthenticatedAdminModerationRoute =
     path: '/moderation',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const LangHallsHallRoute = LangHallsHallRouteImport.update({
+  id: '/halls/$hall',
+  path: '/halls/$hall',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangExhibitionsSlugRoute = LangExhibitionsSlugRouteImport.update({
+  id: '/exhibitions/$slug',
+  path: '/exhibitions/$slug',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangArtworksSlugRoute = LangArtworksSlugRouteImport.update({
+  id: '/artworks/$slug',
+  path: '/artworks/$slug',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangArtistsSlugRoute = LangArtistsSlugRouteImport.update({
+  id: '/artists/$slug',
+  path: '/artists/$slug',
+  getParentRoute: () => LangRoute,
+} as any)
 const ApiPublicSubscribeConfirmRoute =
   ApiPublicSubscribeConfirmRouteImport.update({
     id: '/confirm',
@@ -133,6 +157,10 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/curator': typeof AuthenticatedCuratorRouteWithChildren
   '/studio': typeof AuthenticatedStudioRouteWithChildren
+  '/$lang/artists/$slug': typeof LangArtistsSlugRoute
+  '/$lang/artworks/$slug': typeof LangArtworksSlugRoute
+  '/$lang/exhibitions/$slug': typeof LangExhibitionsSlugRoute
+  '/$lang/halls/$hall': typeof LangHallsHallRoute
   '/admin/moderation': typeof AuthenticatedAdminModerationRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/studio/profile': typeof AuthenticatedStudioProfileRoute
@@ -149,6 +177,10 @@ export interface FileRoutesByTo {
   '/$lang': typeof LangRouteWithChildren
   '/auth': typeof AuthRoute
   '/$lang/search': typeof LangSearchRoute
+  '/$lang/artists/$slug': typeof LangArtistsSlugRoute
+  '/$lang/artworks/$slug': typeof LangArtworksSlugRoute
+  '/$lang/exhibitions/$slug': typeof LangExhibitionsSlugRoute
+  '/$lang/halls/$hall': typeof LangHallsHallRoute
   '/admin/moderation': typeof AuthenticatedAdminModerationRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/studio/profile': typeof AuthenticatedStudioProfileRoute
@@ -170,6 +202,10 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/curator': typeof AuthenticatedCuratorRouteWithChildren
   '/_authenticated/studio': typeof AuthenticatedStudioRouteWithChildren
+  '/$lang/artists/$slug': typeof LangArtistsSlugRoute
+  '/$lang/artworks/$slug': typeof LangArtworksSlugRoute
+  '/$lang/exhibitions/$slug': typeof LangExhibitionsSlugRoute
+  '/$lang/halls/$hall': typeof LangHallsHallRoute
   '/_authenticated/admin/moderation': typeof AuthenticatedAdminModerationRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/studio/profile': typeof AuthenticatedStudioProfileRoute
@@ -191,6 +227,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/curator'
     | '/studio'
+    | '/$lang/artists/$slug'
+    | '/$lang/artworks/$slug'
+    | '/$lang/exhibitions/$slug'
+    | '/$lang/halls/$hall'
     | '/admin/moderation'
     | '/admin/users'
     | '/studio/profile'
@@ -207,6 +247,10 @@ export interface FileRouteTypes {
     | '/$lang'
     | '/auth'
     | '/$lang/search'
+    | '/$lang/artists/$slug'
+    | '/$lang/artworks/$slug'
+    | '/$lang/exhibitions/$slug'
+    | '/$lang/halls/$hall'
     | '/admin/moderation'
     | '/admin/users'
     | '/studio/profile'
@@ -227,6 +271,10 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/curator'
     | '/_authenticated/studio'
+    | '/$lang/artists/$slug'
+    | '/$lang/artworks/$slug'
+    | '/$lang/exhibitions/$slug'
+    | '/$lang/halls/$hall'
     | '/_authenticated/admin/moderation'
     | '/_authenticated/admin/users'
     | '/_authenticated/studio/profile'
@@ -354,6 +402,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminModerationRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/$lang/halls/$hall': {
+      id: '/$lang/halls/$hall'
+      path: '/halls/$hall'
+      fullPath: '/$lang/halls/$hall'
+      preLoaderRoute: typeof LangHallsHallRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/exhibitions/$slug': {
+      id: '/$lang/exhibitions/$slug'
+      path: '/exhibitions/$slug'
+      fullPath: '/$lang/exhibitions/$slug'
+      preLoaderRoute: typeof LangExhibitionsSlugRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/artworks/$slug': {
+      id: '/$lang/artworks/$slug'
+      path: '/artworks/$slug'
+      fullPath: '/$lang/artworks/$slug'
+      preLoaderRoute: typeof LangArtworksSlugRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/artists/$slug': {
+      id: '/$lang/artists/$slug'
+      path: '/artists/$slug'
+      fullPath: '/$lang/artists/$slug'
+      preLoaderRoute: typeof LangArtistsSlugRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/api/public/subscribe/confirm': {
       id: '/api/public/subscribe/confirm'
       path: '/confirm'
@@ -438,10 +514,18 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface LangRouteChildren {
   LangSearchRoute: typeof LangSearchRoute
+  LangArtistsSlugRoute: typeof LangArtistsSlugRoute
+  LangArtworksSlugRoute: typeof LangArtworksSlugRoute
+  LangExhibitionsSlugRoute: typeof LangExhibitionsSlugRoute
+  LangHallsHallRoute: typeof LangHallsHallRoute
 }
 
 const LangRouteChildren: LangRouteChildren = {
   LangSearchRoute: LangSearchRoute,
+  LangArtistsSlugRoute: LangArtistsSlugRoute,
+  LangArtworksSlugRoute: LangArtworksSlugRoute,
+  LangExhibitionsSlugRoute: LangExhibitionsSlugRoute,
+  LangHallsHallRoute: LangHallsHallRoute,
 }
 
 const LangRouteWithChildren = LangRoute._addFileChildren(LangRouteChildren)
@@ -467,13 +551,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
